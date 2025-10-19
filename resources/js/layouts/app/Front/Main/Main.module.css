@@ -1,0 +1,6 @@
+/* Front Main Content Wrapper */
+.main {
+  /* Main content wrapper - allows children to define their own styling */
+  position: relative;
+  z-index: 1;
+}

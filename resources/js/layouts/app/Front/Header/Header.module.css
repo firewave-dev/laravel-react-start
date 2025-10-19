@@ -1,0 +1,147 @@
+/* Front Header Styles */
+.header {
+  border-radius: 0;
+  position: relative;
+  z-index: 1000;
+}
+
+.headerContent {
+  position: relative;
+  z-index: 1;
+}
+
+/* Logo Styles */
+.logoIcon {
+  width: 60px;
+  height: 60px;
+}
+
+.churchName {
+  margin-bottom: 2px;
+  font-family: serif;
+  font-size: 1.75rem;
+  font-weight: 600;
+}
+
+.churchTagline {
+  color: rgba(255, 248, 220, 0.95);
+  font-style: italic;
+  font-size: 0.9rem;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+}
+
+/* Language Switcher */
+.languageButton {
+  background-color: rgba(255, 248, 220, 0.2);
+  border: 1px solid rgba(255, 215, 0, 0.4);
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(255, 215, 0, 0.3);
+  transition: all 0.2s ease;
+  min-width: auto;
+  height: 32px;
+  width: 40px;
+}
+
+.languageButton:hover {
+  background-color: rgba(255, 248, 220, 0.3);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(255, 215, 0, 0.4);
+}
+
+.languageLabel {
+  color: #8B4513;
+  font-weight: 600;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.languageItem {
+  background-color: transparent;
+  font-weight: 500;
+  color: #654321;
+  border-radius: 6px;
+  margin: 2px 4px;
+  font-size: 0.85rem;
+  padding: 8px 12px;
+  border: 1px solid transparent;
+  transition: all 0.2s ease;
+}
+
+.languageItem:hover {
+  background-color: rgba(139, 69, 19, 0.08);
+  color: #8B4513;
+}
+
+.languageItemActive {
+  background-color: rgba(139, 69, 19, 0.15);
+  font-weight: 600;
+  color: #8B4513;
+  border: 1px solid rgba(139, 69, 19, 0.2);
+}
+
+/* Auth Buttons */
+.welcomeText {
+  color: rgba(255, 248, 220, 0.9);
+  font-weight: 500;
+  margin-right: 8px;
+  font-size: 0.75rem;
+}
+
+.dashboardButton {
+  background-color: rgba(255, 248, 220, 0.95);
+  color: #8B4513;
+  font-weight: 600;
+  border: 1px solid rgba(255, 215, 0, 0.4);
+  border-radius: 16px;
+  box-shadow: 0 2px 8px rgba(255, 215, 0, 0.3);
+  transition: all 0.2s ease;
+  font-size: 0.75rem;
+  height: 28px;
+  padding-left: 12px;
+  padding-right: 12px;
+}
+
+.dashboardButton:hover {
+  background-color: rgba(212, 196, 168, 0.95);
+  box-shadow: 0 4px 12px rgba(255, 215, 0, 0.4);
+  transform: translateY(-1px);
+}
+
+.loginButton {
+  color: rgba(255, 248, 220, 0.95);
+  font-weight: 500;
+  border: 1px solid rgba(255, 248, 220, 0.3);
+  border-radius: 16px;
+  transition: all 0.2s ease;
+  font-size: 0.75rem;
+  height: 28px;
+  padding-left: 12px;
+  padding-right: 12px;
+}
+
+.loginButton:hover {
+  background-color: rgba(255, 248, 220, 0.15);
+  border-color: rgba(255, 248, 220, 0.5);
+  transform: translateY(-1px);
+}
+
+.signUpButton {
+  background-color: rgba(255, 248, 220, 0.95);
+  color: #8B4513;
+  font-weight: 600;
+  border: 1px solid rgba(255, 215, 0, 0.4);
+  border-radius: 16px;
+  box-shadow: 0 2px 8px rgba(255, 215, 0, 0.3);
+  transition: all 0.2s ease;
+  font-size: 0.75rem;
+  height: 28px;
+  padding-left: 12px;
+  padding-right: 12px;
+}
+
+.signUpButton:hover {
+  background-color: rgba(212, 196, 168, 0.95);
+  box-shadow: 0 4px 12px rgba(255, 215, 0, 0.4);
+  transform: translateY(-1px);
+}

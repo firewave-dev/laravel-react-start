@@ -1,0 +1,95 @@
+/* Menu/Navbar Styles */
+.navbar {
+  background: linear-gradient(180deg, #1a1f2e 0%, #0f1419 100%);
+  border-right: 1px solid rgba(255, 215, 0, 0.1);
+}
+
+/* Orthodox Icon */
+.orthodoxIcon {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 15px rgba(255, 215, 0, 0.4);
+}
+
+/* Section Labels */
+.sectionLabel {
+  color: rgba(255, 215, 0, 0.5);
+  font-size: 0.75rem;
+  font-weight: 600;
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
+  padding-left: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* Navigation Links */
+.navLink {
+  border-radius: 10px;
+  color: #b8b8b8;
+  font-size: 0.95rem;
+  transition: all 0.2s ease;
+}
+
+.navLink:hover {
+  background-color: rgba(255, 215, 0, 0.05);
+  color: #FFD700;
+}
+
+.navLink[data-active] {
+  background: linear-gradient(135deg, rgba(255, 215, 0, 0.15) 0%, rgba(255, 165, 0, 0.1) 100%);
+  color: #FFD700;
+  font-weight: 600;
+  border: 1px solid rgba(255, 215, 0, 0.3);
+  box-shadow: 0 4px 12px rgba(255, 215, 0, 0.2);
+}
+
+/* Settings NavLinks (smaller) */
+.navLink:nth-child(n+3) {
+  font-size: 0.9rem;
+}
+
+.navLink:nth-child(n+3)[data-active] {
+  background: linear-gradient(135deg, rgba(255, 215, 0, 0.15) 0%, rgba(255, 165, 0, 0.1) 100%);
+  color: #FFD700;
+  font-weight: 600;
+  border: 1px solid rgba(255, 215, 0, 0.3);
+}
+
+/* Back to Site Button */
+.backButton {
+  border-radius: 10px;
+  font-size: 0.9rem;
+  color: #b8b8b8;
+  border: 1px solid rgba(255, 215, 0, 0.15);
+  transition: all 0.2s ease;
+}
+
+.backButton:hover {
+  background-color: rgba(255, 215, 0, 0.05);
+  color: #FFD700;
+  border-color: rgba(255, 215, 0, 0.3);
+}
+
+/* Logout Button */
+.logoutButton {
+  background: linear-gradient(135deg, rgba(255, 215, 0, 0.2) 0%, rgba(255, 165, 0, 0.15) 100%);
+  color: #FFD700;
+  border: 1px solid rgba(255, 215, 0, 0.3);
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(255, 215, 0, 0.2);
+}
+
+.logoutButton:hover {
+  background: linear-gradient(135deg, rgba(255, 215, 0, 0.3) 0%, rgba(255, 165, 0, 0.25) 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(255, 215, 0, 0.4);
+}

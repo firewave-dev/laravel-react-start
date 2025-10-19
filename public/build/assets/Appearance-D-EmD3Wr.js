@@ -1,0 +1,1 @@
+import{j as e}from"./app-BByfSfuC.js";/* empty css            */const p=()=>e.jsxs("div",{children:[e.jsx("h1",{children:"Appearance Settings"}),e.jsx("p",{children:"Configure your appearance preferences here."})]});export{p as default};

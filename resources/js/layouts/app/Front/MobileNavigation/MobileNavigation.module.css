@@ -1,0 +1,122 @@
+/* Mobile Navigation Styles */
+.mobileNav {
+  background: linear-gradient(rgba(139, 69, 19, 0.9), rgba(139, 69, 19, 0.95)),
+             linear-gradient(45deg, #8B4513 0%, #A0522D 50%, #8B4513 100%);
+  border-radius: 0;
+  border-top: 1px solid rgba(255, 215, 0, 0.2);
+  position: relative;
+  z-index: 997;
+}
+
+/* Mobile Navigation Links */
+.mobileNavLink {
+  color: rgba(255, 248, 220, 0.95);
+  font-weight: 500;
+  border-radius: 10px;
+  background: transparent;
+  border: 1px solid transparent;
+  transition: all 0.2s ease;
+  font-size: 0.9rem;
+  text-shadow: none;
+}
+
+.mobileNavLink:hover {
+  background: rgba(255, 248, 220, 0.1);
+  color: #FFD700;
+  border: 1px solid rgba(255, 215, 0, 0.2);
+}
+
+.mobileNavLinkActive {
+  color: #FFD700;
+  font-weight: 600;
+  background: rgba(255, 215, 0, 0.2);
+  border: 1px solid rgba(255, 215, 0, 0.3);
+  text-shadow: 0 0 6px rgba(255, 215, 0, 0.5);
+}
+
+/* Language Section */
+.languageLabel {
+  color: #FFD700;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-shadow: 0 0 4px rgba(255, 215, 0, 0.5);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.languageButton {
+  font-weight: 500;
+  background-color: transparent;
+  color: rgba(255, 248, 220, 0.9);
+  border: 1px solid rgba(255, 248, 220, 0.2);
+  border-radius: 12px;
+  font-size: 0.7rem;
+  height: 26px;
+  transition: all 0.2s ease;
+}
+
+.languageButton:hover {
+  background-color: rgba(255, 248, 220, 0.1);
+  color: #FFD700;
+  border-color: rgba(255, 215, 0, 0.3);
+}
+
+.languageButtonActive {
+  font-weight: 600;
+  background-color: rgba(255, 215, 0, 0.2);
+  color: #FFD700;
+  border: 1px solid rgba(255, 215, 0, 0.3);
+}
+
+/* Auth Section */
+.welcomeText {
+  color: rgba(255, 248, 220, 0.9);
+  font-size: 0.8rem;
+  text-align: center;
+}
+
+.dashboardButton {
+  background-color: rgba(255, 248, 220, 0.95);
+  color: #8B4513;
+  font-weight: 600;
+  border: 1px solid rgba(255, 215, 0, 0.4);
+  border-radius: 16px;
+  font-size: 0.8rem;
+  transition: all 0.2s ease;
+}
+
+.dashboardButton:hover {
+  background-color: rgba(212, 196, 168, 0.95);
+  box-shadow: 0 2px 8px rgba(255, 215, 0, 0.3);
+  transform: translateY(-1px);
+}
+
+.loginButton {
+  color: rgba(255, 248, 220, 0.95);
+  border: 1px solid rgba(255, 248, 220, 0.3);
+  border-radius: 16px;
+  font-size: 0.8rem;
+  transition: all 0.2s ease;
+}
+
+.loginButton:hover {
+  background-color: rgba(255, 248, 220, 0.1);
+  color: #FFD700;
+  border-color: rgba(255, 215, 0, 0.3);
+}
+
+.signUpButton {
+  background-color: rgba(255, 248, 220, 0.95);
+  color: #8B4513;
+  font-weight: 600;
+  border: 1px solid rgba(255, 215, 0, 0.4);
+  border-radius: 16px;
+  font-size: 0.8rem;
+  transition: all 0.2s ease;
+}
+
+.signUpButton:hover {
+  background-color: rgba(212, 196, 168, 0.95);
+  box-shadow: 0 2px 8px rgba(255, 215, 0, 0.3);
+  transform: translateY(-1px);
+}

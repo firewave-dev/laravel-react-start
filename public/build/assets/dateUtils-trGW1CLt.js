@@ -1,0 +1,1 @@
+const a=(r,e="en-US",n={})=>{if(!r)return"";const o={year:"numeric",month:"long",day:"numeric",...n};try{const t=typeof r=="string"?new Date(r):r;return new Intl.DateTimeFormat(e,o).format(t)}catch(t){return console.error("Error formatting date:",t),""}};export{a as f};

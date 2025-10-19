@@ -1,0 +1,51 @@
+/* Header Styles */
+.header {
+  background: linear-gradient(135deg, #1a1f2e 0%, #0f1419 100%);
+  border-bottom: 1px solid rgba(255, 215, 0, 0.15);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* Language Switcher Button */
+.languageButton {
+  background-color: rgba(255, 215, 0, 0.1);
+  border: 1px solid rgba(255, 215, 0, 0.3);
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(255, 215, 0, 0.2);
+  transition: all 0.2s ease;
+}
+
+.languageButton:hover {
+  background-color: rgba(255, 215, 0, 0.15) !important;
+  box-shadow: 0 4px 12px rgba(255, 215, 0, 0.3);
+}
+
+/* Language Menu */
+.languageLabel {
+  color: #FFD700;
+  font-weight: 600;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+}
+
+.languageItem {
+  background-color: transparent;
+  color: #b8b8b8;
+  font-weight: 500;
+  border-radius: 6px;
+  margin: 2px 4px;
+  font-size: 0.85rem;
+  border: 1px solid transparent;
+  transition: all 0.2s ease;
+}
+
+.languageItem:hover {
+  background-color: rgba(255, 215, 0, 0.08);
+  color: #FFD700;
+}
+
+.languageItemActive {
+  background-color: rgba(255, 215, 0, 0.15);
+  font-weight: 600;
+  color: #FFD700;
+  border: 1px solid rgba(255, 215, 0, 0.3);
+}

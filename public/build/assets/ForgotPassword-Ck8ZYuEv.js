@@ -1,0 +1,1 @@
+import{j as r}from"./app-BByfSfuC.js";/* empty css            */const i=({status:e})=>r.jsxs("div",{children:[r.jsx("h1",{children:"Forgot Password"}),e&&r.jsx("div",{children:e}),r.jsx("p",{children:"Enter your email to receive a password reset link."})]});export{i as default};

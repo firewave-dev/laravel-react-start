@@ -1,0 +1,33 @@
+/* Application Styles */
+@import url('./orthodox.css');
+
+/* Reset and base styles */
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Instrument Sans', sans-serif;
+    line-height: 1.6;
+    color: #333;
+    background-color: #fff;
+}
+
+/* Utility classes */
+.font-sans {
+    font-family: 'Instrument Sans', sans-serif;
+}
+
+.antialiased {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* Responsive utilities */
+@media (max-width: 768px) {
+    body {
+        font-size: 14px;
+    }
+}
