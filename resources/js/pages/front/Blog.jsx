@@ -11,11 +11,12 @@ const Blog = ({ posts, filters, currentLocale = 'en' }) => {
   
   // Helper function to get translated content
   const getTranslatedContent = (item, field) => {
+    // Use the currentLocale prop from backend, not the hook
     if (currentLocale === 'en' || !item.translations) {
       return item[field]
     }
     
-    const translation = item.translations.find(t => t.locale === currentLocale)
+    const translation = item.translations.find(trans => trans.locale === currentLocale)
     return translation?.[field] || item[field]
   }
   
