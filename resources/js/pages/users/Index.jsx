@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Container, Title, Text, Paper, Table, Button, Group, Badge, TextInput, ActionIcon, Menu } from '@mantine/core'
+import { Container, Title, Text, Paper, Table, Button, Group, Badge, TextInput, ActionIcon, Menu, Pagination } from '@mantine/core'
 import { Link, router } from '@inertiajs/react'
 import { Plus, Search, Edit, Eye, Trash, MoreVertical } from 'lucide-react'
 import Layout from '../../layouts/app/Backend/Layout'
@@ -8,10 +8,17 @@ import { useLanguage } from '../../contexts/LanguageContext'
 const UsersIndex = ({ users, filters }) => {
   const { t } = useLanguage()
   const [search, setSearch] = useState(filters?.search || '')
+  const [currentPage, setCurrentPage] = useState(users?.current_page || 1)
 
   const handleSearch = (e) => {
     e.preventDefault()
-    router.get('/users', { search }, { preserveState: true })
+    setCurrentPage(1)
+    router.get('/users', { search, page: 1 }, { preserveState: true })
+  }
+
+  const handlePageChange = (page) => {
+    setCurrentPage(page)
+    router.get('/users', { search, page }, { preserveState: true })
   }
 
   const handleDelete = (userId) => {
@@ -201,7 +208,28 @@ const UsersIndex = ({ users, filters }) => {
             </Table>
           </Paper>
 
-          {/* Pagination would go here */}
+          {/* Pagination */}
+          {users && users.last_page > 1 && (
+            <Group justify="center" mt="xl">
+              <Pagination
+                value={currentPage}
+                onChange={handlePageChange}
+                total={users.last_page}
+                size="sm"
+                color="yellow"
+                styles={{
+                  control: {
+                    backgroundColor: 'rgba(26, 31, 46, 0.6)',
+                    border: '1px solid rgba(255, 215, 0, 0.2)',
+                    color: '#fff',
+                    '&:hover': {
+                      backgroundColor: 'rgba(255, 215, 0, 0.1)',
+                    }
+                  }
+                }}
+              />
+            </Group>
+          )}
         </Paper>
       </Container>
     </Layout>

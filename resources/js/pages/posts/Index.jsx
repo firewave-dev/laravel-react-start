@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Container, Title, Text, Paper, Table, Button, Group, Badge, TextInput, ActionIcon, Select } from '@mantine/core'
+import { Container, Title, Text, Paper, Table, Button, Group, Badge, TextInput, ActionIcon, Select, Pagination } from '@mantine/core'
 import { Link, router } from '@inertiajs/react'
 import { Plus, Search, Edit, Eye, Trash } from 'lucide-react'
 import Layout from '../../layouts/app/Backend/Layout'
@@ -8,10 +8,17 @@ const PostsIndex = ({ posts, filters }) => {
   const [search, setSearch] = useState(filters?.search || '')
   const [status, setStatus] = useState(filters?.status || '')
   const [category, setCategory] = useState(filters?.category || '')
+  const [currentPage, setCurrentPage] = useState(posts?.current_page || 1)
 
   const handleSearch = (e) => {
     e.preventDefault()
-    router.get('/posts', { search, status, category }, { preserveState: true })
+    setCurrentPage(1)
+    router.get('/posts', { search, status, category, page: 1 }, { preserveState: true })
+  }
+
+  const handlePageChange = (page) => {
+    setCurrentPage(page)
+    router.get('/posts', { search, status, category, page }, { preserveState: true })
   }
 
   const handleDelete = (postId) => {
@@ -247,6 +254,29 @@ const PostsIndex = ({ posts, filters }) => {
               </Table.Tbody>
             </Table>
           </Paper>
+
+          {/* Pagination */}
+          {posts && posts.last_page > 1 && (
+            <Group justify="center" mt="xl">
+              <Pagination
+                value={currentPage}
+                onChange={handlePageChange}
+                total={posts.last_page}
+                size="sm"
+                color="yellow"
+                styles={{
+                  control: {
+                    backgroundColor: 'rgba(26, 31, 46, 0.6)',
+                    border: '1px solid rgba(255, 215, 0, 0.2)',
+                    color: '#fff',
+                    '&:hover': {
+                      backgroundColor: 'rgba(255, 215, 0, 0.1)',
+                    }
+                  }
+                }}
+              />
+            </Group>
+          )}
         </Paper>
       </Container>
     </Layout>
