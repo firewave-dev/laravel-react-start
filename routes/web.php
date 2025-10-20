@@ -119,6 +119,7 @@ Route::post('/upload/post-image', [App\Http\Controllers\FileUploadController::cl
 Route::post('/upload/event-image', [App\Http\Controllers\FileUploadController::class, 'uploadEventImage'])->name('upload.event-image');
 
 
+
 // Prayer Requests Routes
 Route::get('/prayer-requests', [App\Http\Controllers\PrayerRequestController::class, 'index'])->name('prayer-requests.index');
 Route::get('/prayer-requests/create', [App\Http\Controllers\PrayerRequestController::class, 'create'])->name('prayer-requests.create');
