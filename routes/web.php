@@ -113,6 +113,11 @@ Route::get('/search/suggestions', [SearchController::class, 'suggestions'])->nam
 Route::get('/api/quotes/random', [App\Http\Controllers\QuotesController::class, 'random'])->name('quotes.random');
 Route::get('/api/quotes/browse', [App\Http\Controllers\QuotesController::class, 'browse'])->name('quotes.browse');
 
+// File upload routes
+Route::post('/upload/avatar', [App\Http\Controllers\FileUploadController::class, 'uploadAvatar'])->name('upload.avatar');
+Route::post('/upload/post-image', [App\Http\Controllers\FileUploadController::class, 'uploadPostImage'])->name('upload.post-image');
+Route::post('/upload/event-image', [App\Http\Controllers\FileUploadController::class, 'uploadEventImage'])->name('upload.event-image');
+
 // Prayer Requests Routes
 Route::get('/prayer-requests', [App\Http\Controllers\PrayerRequestController::class, 'index'])->name('prayer-requests.index');
 Route::get('/prayer-requests/create', [App\Http\Controllers\PrayerRequestController::class, 'create'])->name('prayer-requests.create');
