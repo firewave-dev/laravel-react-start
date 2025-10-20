@@ -44,6 +44,7 @@ Route::get('/bulletin', function () {
     $locale = request('lang', 'en');
     
     $bulletins = \App\Models\Bulletin::active()
+        ->forLocale($locale)
         ->with(['poster', 'translations'])
         ->orderBy('is_pinned', 'desc')
         ->orderBy('priority', 'asc')
@@ -61,6 +62,7 @@ Route::get('/calendar', function () {
     
     // Get upcoming published events with registration data
     $events = \App\Models\Event::published()
+        ->forLocale($locale)
         ->with(['translations', 'registrations'])
         ->upcoming()
         ->orderBy('event_date')
@@ -77,6 +79,7 @@ Route::get('/blog', function () {
     $locale = request('lang', 'en'); // Get language from query param
     
     $posts = \App\Models\Post::published()
+        ->forLocale($locale)
         ->with(['author', 'translations'])
         ->latest('published_at')
         ->paginate(10);
@@ -91,6 +94,7 @@ Route::get('/blog/{slug}', function ($slug) {
     $locale = request('lang', 'en');
     
     $post = \App\Models\Post::published()
+        ->forLocale($locale)
         ->with(['author', 'translations'])
         ->where('slug', $slug)
         ->firstOrFail();
@@ -158,13 +162,14 @@ Route::middleware(['auth', 'verified'])->group(function () {
             ]
         ];
 
-        // Get recent content (all posts, but display in selected language)
-        $recentPosts = \App\Models\Post::with(['author', 'translations'])
+        // Get recent content filtered by locale (only show content in selected language)
+        $recentPosts = \App\Models\Post::forLocale($locale)
+            ->with(['author', 'translations'])
             ->latest()
             ->limit(5)
             ->get()
             ->map(function ($post) use ($locale) {
-                // Get translated title if available
+                // Get title in the selected language
                 $title = $post->title;
                 if ($locale !== 'en' && $post->translations) {
                     $translation = $post->translations->where('locale', $locale)->first();
@@ -180,13 +185,14 @@ Route::middleware(['auth', 'verified'])->group(function () {
                 ];
             });
 
-        $recentEvents = \App\Models\Event::with('translations')
+        $recentEvents = \App\Models\Event::forLocale($locale)
+            ->with('translations')
             ->where('event_date', '>=', now())
             ->orderBy('event_date')
             ->limit(5)
             ->get()
             ->map(function ($event) use ($locale) {
-                // Get translated title if available
+                // Get title in the selected language
                 $title = $event->title;
                 if ($locale !== 'en' && $event->translations) {
                     $translation = $event->translations->where('locale', $locale)->first();
@@ -202,13 +208,14 @@ Route::middleware(['auth', 'verified'])->group(function () {
                 ];
             });
 
-        $recentBulletins = \App\Models\Bulletin::with(['poster', 'translations'])
+        $recentBulletins = \App\Models\Bulletin::forLocale($locale)
+            ->with(['poster', 'translations'])
             ->active()
             ->latest()
             ->limit(5)
             ->get()
             ->map(function ($bulletin) use ($locale) {
-                // Get translated title if available
+                // Get title in the selected language
                 $title = $bulletin->title;
                 if ($locale !== 'en' && $bulletin->translations) {
                     $translation = $bulletin->translations->where('locale', $locale)->first();
@@ -225,17 +232,18 @@ Route::middleware(['auth', 'verified'])->group(function () {
                 ];
             });
 
-        // Get pending moderations (posts/events/bulletins with pending status)
+        // Get pending moderations (posts/events/bulletins with pending status) filtered by locale
         $pendingModerations = collect();
         
         // Pending posts
-        $pendingPosts = \App\Models\Post::where('status', 'pending')
+        $pendingPosts = \App\Models\Post::forLocale($locale)
+            ->where('status', 'pending')
             ->with(['author', 'translations'])
             ->latest()
             ->limit(3)
             ->get()
             ->map(function ($post) use ($locale) {
-                // Get translated title if available
+                // Get title in the selected language
                 $title = $post->title;
                 if ($locale !== 'en' && $post->translations) {
                     $translation = $post->translations->where('locale', $locale)->first();
@@ -252,13 +260,14 @@ Route::middleware(['auth', 'verified'])->group(function () {
             });
 
         // Pending events
-        $pendingEvents = \App\Models\Event::where('status', 'pending')
+        $pendingEvents = \App\Models\Event::forLocale($locale)
+            ->where('status', 'pending')
             ->with('translations')
             ->latest()
             ->limit(3)
             ->get()
             ->map(function ($event) use ($locale) {
-                // Get translated title if available
+                // Get title in the selected language
                 $title = $event->title;
                 if ($locale !== 'en' && $event->translations) {
                     $translation = $event->translations->where('locale', $locale)->first();
@@ -274,13 +283,14 @@ Route::middleware(['auth', 'verified'])->group(function () {
             });
 
         // Pending bulletins
-        $pendingBulletins = \App\Models\Bulletin::where('status', 'pending')
+        $pendingBulletins = \App\Models\Bulletin::forLocale($locale)
+            ->where('status', 'pending')
             ->with(['poster', 'translations'])
             ->latest()
             ->limit(3)
             ->get()
             ->map(function ($bulletin) use ($locale) {
-                // Get translated title if available
+                // Get title in the selected language
                 $title = $bulletin->title;
                 if ($locale !== 'en' && $bulletin->translations) {
                     $translation = $bulletin->translations->where('locale', $locale)->first();
