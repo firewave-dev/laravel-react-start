@@ -118,6 +118,37 @@ Route::post('/upload/avatar', [App\Http\Controllers\FileUploadController::class,
 Route::post('/upload/post-image', [App\Http\Controllers\FileUploadController::class, 'uploadPostImage'])->name('upload.post-image');
 Route::post('/upload/event-image', [App\Http\Controllers\FileUploadController::class, 'uploadEventImage'])->name('upload.event-image');
 
+// Debug route to test language filtering
+Route::get('/debug-lang', function () {
+    $locale = request('lang', 'en');
+    
+    $posts = \App\Models\Post::forLocale($locale)
+        ->with(['author', 'translations'])
+        ->latest()
+        ->limit(3)
+        ->get()
+        ->map(function ($post) use ($locale) {
+            $title = $post->title;
+            if ($locale !== 'en' && $post->translations) {
+                $translation = $post->translations->where('locale', $locale)->first();
+                $title = $translation?->title ?? $post->title;
+            }
+            
+            return [
+                'id' => $post->id,
+                'title' => $title,
+                'original_title' => $post->title,
+                'has_translations' => $post->translations->count(),
+                'translations' => $post->translations->pluck('locale')->toArray(),
+            ];
+        });
+    
+    return response()->json([
+        'locale' => $locale,
+        'posts' => $posts
+    ]);
+});
+
 // Prayer Requests Routes
 Route::get('/prayer-requests', [App\Http\Controllers\PrayerRequestController::class, 'index'])->name('prayer-requests.index');
 Route::get('/prayer-requests/create', [App\Http\Controllers\PrayerRequestController::class, 'create'])->name('prayer-requests.create');
@@ -137,9 +168,6 @@ Route::delete('/registrations/{registration}', [App\Http\Controllers\EventRegist
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/dashboard', function () {
         $locale = request('lang', 'en'); // Get language from query param
-        
-        // Debug: Log the received locale
-        \Log::info('Dashboard accessed with locale: ' . $locale);
         
         // Get real statistics
         $stats = [
