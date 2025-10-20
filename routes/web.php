@@ -138,6 +138,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/dashboard', function () {
         $locale = request('lang', 'en'); // Get language from query param
         
+        // Debug: Log the received locale
+        \Log::info('Dashboard accessed with locale: ' . $locale);
+        
         // Get real statistics
         $stats = [
             'posts' => [
