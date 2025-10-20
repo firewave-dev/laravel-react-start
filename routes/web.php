@@ -136,6 +136,8 @@ Route::delete('/registrations/{registration}', [App\Http\Controllers\EventRegist
 // Authenticated routes
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/dashboard', function () {
+        $locale = request('lang', 'en'); // Get language from query param
+        
         // Get real statistics
         $stats = [
             'posts' => [
@@ -160,45 +162,69 @@ Route::middleware(['auth', 'verified'])->group(function () {
             ]
         ];
 
-        // Get recent content
-        $recentPosts = \App\Models\Post::with(['author', 'translations'])
+        // Get recent content filtered by locale
+        $recentPosts = \App\Models\Post::forLocale($locale)
+            ->with(['author', 'translations'])
             ->latest()
             ->limit(5)
             ->get()
-            ->map(function ($post) {
+            ->map(function ($post) use ($locale) {
+                // Get translated title if available
+                $title = $post->title;
+                if ($locale !== 'en' && $post->translations) {
+                    $translation = $post->translations->where('locale', $locale)->first();
+                    $title = $translation?->title ?? $post->title;
+                }
+                
                 return [
                     'id' => $post->id,
-                    'title' => $post->title,
+                    'title' => $title,
                     'status' => $post->status,
                     'created_at' => $post->created_at,
                     'author_name' => $post->author?->name ?? 'Unknown',
                 ];
             });
 
-        $recentEvents = \App\Models\Event::with('translations')
+        $recentEvents = \App\Models\Event::forLocale($locale)
+            ->with('translations')
             ->where('event_date', '>=', now())
             ->orderBy('event_date')
             ->limit(5)
             ->get()
-            ->map(function ($event) {
+            ->map(function ($event) use ($locale) {
+                // Get translated title if available
+                $title = $event->title;
+                if ($locale !== 'en' && $event->translations) {
+                    $translation = $event->translations->where('locale', $locale)->first();
+                    $title = $translation?->title ?? $event->title;
+                }
+                
                 return [
                     'id' => $event->id,
-                    'title' => $event->title,
+                    'title' => $title,
                     'event_date' => $event->event_date,
                     'status' => $event->status,
                     'location' => $event->location,
                 ];
             });
 
-        $recentBulletins = \App\Models\Bulletin::with(['poster', 'translations'])
+        $recentBulletins = \App\Models\Bulletin::forLocale($locale)
+            ->with(['poster', 'translations'])
             ->active()
             ->latest()
             ->limit(5)
             ->get()
-            ->map(function ($bulletin) {
+            ->map(function ($bulletin) use ($locale) {
+                // Get translated title if available
+                $title = $bulletin->title;
+                if ($locale !== 'en' && $bulletin->translations) {
+                    $translation = $bulletin->translations->where('locale', $locale)->first();
+                    $title = $translation?->title ?? $bulletin->title;
+                }
+                
                 return [
                     'id' => $bulletin->id,
-                    'title' => $bulletin->title,
+                    'title' => $title,
                     'priority' => $bulletin->priority,
                     'created_at' => $bulletin->created_at,
                     'is_pinned' => $bulletin->is_pinned,
@@ -206,50 +232,75 @@ Route::middleware(['auth', 'verified'])->group(function () {
                 ];
             });
 
-        // Get pending moderations (posts/events/bulletins with pending status)
+        // Get pending moderations (posts/events/bulletins with pending status) filtered by locale
         $pendingModerations = collect();
         
         // Pending posts
-        $pendingPosts = \App\Models\Post::where('status', 'pending')
-            ->with(['author'])
+        $pendingPosts = \App\Models\Post::forLocale($locale)
+            ->where('status', 'pending')
+            ->with(['author', 'translations'])
             ->latest()
             ->limit(3)
             ->get()
-            ->map(function ($post) {
+            ->map(function ($post) use ($locale) {
+                // Get translated title if available
+                $title = $post->title;
+                if ($locale !== 'en' && $post->translations) {
+                    $translation = $post->translations->where('locale', $locale)->first();
+                    $title = $translation?->title ?? $post->title;
+                }
+                
                 return [
                     'id' => $post->id,
                     'content_type' => 'Post',
-                    'title' => $post->title,
+                    'title' => $title,
                     'created_at' => $post->created_at,
                     'author_name' => $post->author?->name ?? 'Unknown',
                 ];
             });
 
         // Pending events
-        $pendingEvents = \App\Models\Event::where('status', 'pending')
+        $pendingEvents = \App\Models\Event::forLocale($locale)
+            ->where('status', 'pending')
+            ->with('translations')
             ->latest()
             ->limit(3)
             ->get()
-            ->map(function ($event) {
+            ->map(function ($event) use ($locale) {
+                // Get translated title if available
+                $title = $event->title;
+                if ($locale !== 'en' && $event->translations) {
+                    $translation = $event->translations->where('locale', $locale)->first();
+                    $title = $translation?->title ?? $event->title;
+                }
+                
                 return [
                     'id' => $event->id,
                     'content_type' => 'Event',
-                    'title' => $event->title,
+                    'title' => $title,
                     'created_at' => $event->created_at,
                 ];
             });
 
         // Pending bulletins
-        $pendingBulletins = \App\Models\Bulletin::where('status', 'pending')
-            ->with(['poster'])
+        $pendingBulletins = \App\Models\Bulletin::forLocale($locale)
+            ->where('status', 'pending')
+            ->with(['poster', 'translations'])
             ->latest()
             ->limit(3)
             ->get()
-            ->map(function ($bulletin) {
+            ->map(function ($bulletin) use ($locale) {
+                // Get translated title if available
+                $title = $bulletin->title;
+                if ($locale !== 'en' && $bulletin->translations) {
+                    $translation = $bulletin->translations->where('locale', $locale)->first();
+                    $title = $translation?->title ?? $bulletin->title;
+                }
+                
                 return [
                     'id' => $bulletin->id,
                     'content_type' => 'Bulletin',
-                    'title' => $bulletin->title,
+                    'title' => $title,
                     'created_at' => $bulletin->created_at,
                     'poster_name' => $bulletin->poster?->name ?? 'Unknown',
                 ];
@@ -267,6 +318,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
             'recentEvents' => $recentEvents,
             'recentBulletins' => $recentBulletins,
             'pendingModerations' => $pendingModerations,
+            'currentLocale' => $locale,
         ]);
     })->name('dashboard');
 
