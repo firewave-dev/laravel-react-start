@@ -37,7 +37,8 @@ const Dashboard = ({
   recentPosts = [],
   recentEvents = [],
   recentBulletins = [],
-  pendingModerations = []
+  pendingModerations = [],
+  currentLocale = 'en'
 }) => {
   const getPriorityColor = (priority) => {
     switch (priority) {
