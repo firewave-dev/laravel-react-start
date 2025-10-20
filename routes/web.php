@@ -41,7 +41,7 @@ Route::get('/contact', function () {
 })->name('contact');
 
 Route::get('/bulletin', function () {
-    $locale = request('lang', 'en');
+    $locale = $_GET['lang'] ?? 'en';
     
     $bulletins = \App\Models\Bulletin::active()
         ->forLocale($locale)
@@ -58,7 +58,7 @@ Route::get('/bulletin', function () {
 })->name('bulletin');
 
 Route::get('/calendar', function () {
-    $locale = request('lang', 'en');
+    $locale = $_GET['lang'] ?? 'en';
     
     // Get upcoming published events with registration data
     $events = \App\Models\Event::published()
@@ -76,7 +76,7 @@ Route::get('/calendar', function () {
 })->name('calendar');
 
 Route::get('/blog', function () {
-    $locale = request('lang', 'en'); // Get language from query param
+    $locale = $_GET['lang'] ?? 'en'; // Get language from query param
     
     $posts = \App\Models\Post::published()
         ->forLocale($locale)
@@ -91,7 +91,7 @@ Route::get('/blog', function () {
 })->name('blog');
 
 Route::get('/blog/{slug}', function ($slug) {
-    $locale = request('lang', 'en');
+    $locale = $_GET['lang'] ?? 'en';
     
     $post = \App\Models\Post::published()
         ->forLocale($locale)
@@ -137,7 +137,7 @@ Route::delete('/registrations/{registration}', [App\Http\Controllers\EventRegist
 // Authenticated routes
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/dashboard', function () {
-        $locale = request('lang', 'en'); // Get language from query param
+        $locale = $_GET['lang'] ?? 'en'; // Get language from query param
         
         // Get real statistics
         $stats = [
