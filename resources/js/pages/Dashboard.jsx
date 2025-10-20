@@ -40,9 +40,6 @@ const Dashboard = ({
   pendingModerations = [],
   currentLocale = 'en'
 }) => {
-  // Debug: Log the current locale
-  console.log('Dashboard received currentLocale:', currentLocale);
-  console.log('Dashboard recentPosts:', recentPosts);
   const getPriorityColor = (priority) => {
     switch (priority) {
       case 'high': return 'red'
